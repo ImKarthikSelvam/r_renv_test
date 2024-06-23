@@ -79,13 +79,6 @@
       "Repository": "CRAN",
       "Hash": "1bb58822a20301cee84a41678e25d9b7"
     },
-    "pillar": {
-      "Package": "pillar",
-      "Version": "1.4.1",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "25a21cd606b739c22882bbd77a89437b"
-    },
     "pkgconfig": {
       "Package": "pkgconfig",
       "Version": "2.0.2",
