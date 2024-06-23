@@ -58,13 +58,6 @@
       "Repository": "CRAN",
       "Hash": "931fd68809dab4609b4d4b5702206066"
     },
-    "dplyr": {
-      "Package": "dplyr",
-      "Version": "0.8.3",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "c426258a806b7e69613432b197b9954d"
-    },
     "fansi": {
       "Package": "fansi",
       "Version": "0.4.0",
