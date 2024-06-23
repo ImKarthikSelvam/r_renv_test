@@ -134,13 +134,6 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "35e5495dca3cf9aa5c89f0b4e6865cf3"
-    },
-    "zeallot": {
-      "Package": "zeallot",
-      "Version": "0.1.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "ee9b643aa8331c45d8d82eb3a137c9bc"
     }
   }
 }
