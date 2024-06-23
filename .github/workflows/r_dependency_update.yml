@@ -37,8 +37,8 @@ jobs:
 
     - name: Commit and push changes to feature branch
       run: |
-        git config user.name ''
-        git config user.email ''
+        git config user.name 'ImKarthikSelvam'
+        git config user.email 'karthiksksamy@gmail.com'
         git checkout -b create-renv-lock-file
         git add renv.lock
         git commit -m 'create renv.lock file'
