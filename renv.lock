@@ -86,13 +86,6 @@
       "Repository": "CRAN",
       "Hash": "f5940986fb19bcef52284068baeb3f29"
     },
-    "plogr": {
-      "Package": "plogr",
-      "Version": "0.2.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "09eb987710984fc2905c7129c7d85e65"
-    },
     "purrr": {
       "Package": "purrr",
       "Version": "0.3.2",
