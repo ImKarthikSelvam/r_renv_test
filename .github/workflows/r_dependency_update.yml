@@ -24,7 +24,8 @@ jobs:
         renv::install("rlang")
         renv::install("lifecycle")
         renv::install("vctrs")
-        renv::restore()
+        renv::install("pillar")
+        # renv::restore()
 
     - name: Update renv.lock
       shell: Rscript {0}
