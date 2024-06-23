@@ -1,6 +1,6 @@
 # Example R script that runs some analysis
 
-library(dplyr)
+# library(dplyr)
 
 # How many types of irises are there in the iris dataset?
 n_iris <- iris %>% 
