@@ -23,6 +23,7 @@ jobs:
         # renv::install()
         renv::install("rlang")
         renv::install("lifecycle")
+        renv::install("vctrs")
         renv::restore()
 
     - name: Update renv.lock
