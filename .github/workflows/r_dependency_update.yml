@@ -46,6 +46,12 @@ jobs:
     #   env:
     #     GITHUB_TOKEN: ${{ secrets.DEPENDABOT_GITHUB_TOKEN}}
 
+    - name: Get latest changes
+      run: |
+        git config -e --global
+        git fetch origin create-renv-lock-file
+        git reset --hard create-renv-lock-file
+
     - name: Create pull request
       uses: peter-evans/create-pull-request@v3
       with:
