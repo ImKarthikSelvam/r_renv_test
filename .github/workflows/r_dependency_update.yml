@@ -45,9 +45,10 @@ jobs:
         git push --set-upstream origin create-renv-lock-file
       env:
         GITHUB_TOKEN: ${{ secrets.DEPENDABOT_GITHUB_TOKEN}}
-        
+
     - name: Checkout repository
       uses: actions/checkout@v2
+        ref: main
 
     - name: Create pull request
       uses: peter-evans/create-pull-request@v3
