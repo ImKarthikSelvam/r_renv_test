@@ -32,8 +32,9 @@ jobs:
       run: |
         renv::update()
         renv::snapshot()
-    # - name: check renv.lock changes
-    #   run: git diff renv.lock
+        
+    - name: check renv.lock changes
+      run: git diff renv.lock
 
     - name: Commit and push changes to feature branch
       run: |
