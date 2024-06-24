@@ -47,10 +47,10 @@ jobs:
     #   env:
     #     GITHUB_TOKEN: ${{ secrets.DEPENDABOT_GITHUB_TOKEN}}
 
-    # - name: Return to Main Branch
-    #   run: |
-    #     git checkout main
-    #     git pull origin main
+    - name: Return to Main Branch
+      run: |
+        git checkout main
+        git pull origin main
 
     - name: Create pull request
       uses: peter-evans/create-pull-request@v3
