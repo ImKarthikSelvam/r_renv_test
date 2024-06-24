@@ -50,7 +50,6 @@ jobs:
       run: |
         git config -e --global
         git fetch origin create-renv-lock-file
-        git reset --hard create-renv-lock-file
 
     - name: Create pull request
       uses: peter-evans/create-pull-request@v3
