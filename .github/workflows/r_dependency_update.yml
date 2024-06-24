@@ -45,7 +45,10 @@ jobs:
     #     git push --set-upstream origin create-renv-lock-file
     #   env:
     #     GITHUB_TOKEN: ${{ secrets.DEPENDABOT_GITHUB_TOKEN}}
-
+    - name: Get latest changes
+      run: |
+        git fetch origin main
+        git reset --hard main
     - name: Create pull request
       uses: peter-evans/create-pull-request@v3
       with:
@@ -54,4 +57,4 @@ jobs:
         title: 'Update renv.lock file'
         body: 'This PR updates the renv.lock file of repo'
         branch: update-renv-lock-file
-        base: main
+        # base: main
