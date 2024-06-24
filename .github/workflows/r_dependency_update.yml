@@ -10,30 +10,30 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Set up R
-      uses: r-lib/actions/setup-r@v2
+    # - name: Set up R
+    #   uses: r-lib/actions/setup-r@v2
 
-    - name: install linux dependencies
-      run: sudo apt-get install libcurl4-openssl-dev libfribidi-dev libharfbuzz-dev libfreetype6-dev libgdal-dev libudunits2-dev
+    # - name: install linux dependencies
+    #   run: sudo apt-get install libcurl4-openssl-dev libfribidi-dev libharfbuzz-dev libfreetype6-dev libgdal-dev libudunits2-dev
     
-    - name: Install dependencies
-      shell: Rscript {0}
-      run: |
-        install.packages("renv")
-        # renv::install()
-        renv::install("rlang")
-        renv::install("lifecycle")
-        renv::install("vctrs")
-        renv::install("pillar")
-        # renv::restore()
+    # - name: Install dependencies
+    #   shell: Rscript {0}
+    #   run: |
+    #     install.packages("renv")
+    #     # renv::install()
+    #     renv::install("rlang")
+    #     renv::install("lifecycle")
+    #     renv::install("vctrs")
+    #     renv::install("pillar")
+    #     # renv::restore()
 
-    - name: Update renv.lock
-      shell: Rscript {0}
-      run: |
-        renv::update()
-        renv::snapshot()
-    # - name: check renv.lock changes
-    #   run: git diff renv.lock
+    # - name: Update renv.lock
+    #   shell: Rscript {0}
+    #   run: |
+    #     renv::update()
+    #     renv::snapshot()
+    # # - name: check renv.lock changes
+    # #   run: git diff renv.lock
 
     # - name: Commit and push changes to feature branch
     #   run: |
