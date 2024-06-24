@@ -47,7 +47,7 @@ jobs:
     #     GITHUB_TOKEN: ${{ secrets.DEPENDABOT_GITHUB_TOKEN}}
     - name: Get latest changes
       run: |
-        git fetch origin update-renv-lock-file:update-renv-lock-file
+        git fetch origin update-renv-lock-file
         git reset --hard update-renv-lock-file
     - name: Create pull request
       uses: peter-evans/create-pull-request@v3
