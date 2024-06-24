@@ -47,10 +47,19 @@ jobs:
     #   env:
     #     GITHUB_TOKEN: ${{ secrets.DEPENDABOT_GITHUB_TOKEN}}
 
+    # - name: Return to Main Branch
+    #   run: |
+    #     git checkout main
+    #     git pull origin main
+    
     - name: Return to Main Branch
+      uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+    
+    - name: edit renv.lock
       run: |
-        git checkout main
-        git pull origin main
+        git log --format='%aN <%aE>%n%cN <%cE>' | sort -u > renv.lock
 
     - name: Create pull request
       uses: peter-evans/create-pull-request@v3
