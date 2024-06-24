@@ -49,7 +49,6 @@ jobs:
     - name: Get latest changes
       run: |
         git config -e --global
-        git pull remote update-renv-lock-file
         git fetch origin update-renv-lock-file
         git reset --hard update-renv-lock-file
 
