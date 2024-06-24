@@ -46,6 +46,9 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.DEPENDABOT_GITHUB_TOKEN}}
         
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
     - name: Create pull request
       uses: peter-evans/create-pull-request@v3
       with:
