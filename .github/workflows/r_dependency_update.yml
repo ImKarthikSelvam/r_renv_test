@@ -57,9 +57,11 @@ jobs:
       with:
         fetch-depth: 0
     
-    - name: edit renv.lock
+    - name: Update renv.lock
+      shell: Rscript {0}
       run: |
-        git log --format='%aN <%aE>%n%cN <%cE>' | sort -u > renv.lock
+        renv::update()
+        renv::snapshot()  
 
     - name: Create pull request
       uses: peter-evans/create-pull-request@v3
