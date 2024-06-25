@@ -4,8 +4,8 @@ on:
     types:
       - opened
       # - synchronize
-    branches:
-      - main
+    # branches:
+    #   - main
 
 env:
   JIRA_BASE_URL: https://smartcoversystems.atlassian.net/
