@@ -55,7 +55,7 @@ jobs:
 
     - name: Return to feature Branch
       run: |
-        git checkout create-renv-lock-file
+        git checkout origin/create-renv-lock-file
         git pull origin create-renv-lock-file
 
     - name: Login to Jira
