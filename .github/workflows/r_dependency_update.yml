@@ -65,7 +65,7 @@ jobs:
         JIRA_BASE_URL: ${{env.JIRA_BASE_URL}}
         JIRA_USER_EMAIL: ${{env.JIRA_USER_EMAIL}}
         JIRA_API_TOKEN: ${{secrets.JIRA_API_TOKEN}}
-
+    
     - name: Create Jira Issue
       id: create
       uses: atlassian/gajira-create@v2.0.1
@@ -73,13 +73,13 @@ jobs:
         project: ${{env.JIRA_PROJECT}}
         issuetype: ${{env.JIRA_ISSUE_TYPE}}
         summary: |
-          [${{github.event.repository.name }}] ${{github.event.pull_request.title }}
+          [${{steps.cpr.outputs.pull-request-branch }}] Update renv.lock file
         description: |
-          ${{github.event.pull_request.html_url }}
+          ${{steps.cpr.outputs.pull-request-url }}
     
     - name: Update PR Title with Jira Issue
       run: |
-        NEW_TITLE="${{steps.create.outputs.issue}} - ${{ github.event.pull_request.title }}"
-        gh pr edit ${{ github.event.pull_request.number }} --title "$NEW_TITLE" --body "test"
+        NEW_TITLE="${{steps.create.outputs.issue}} - Update renv.lock file"
+        gh pr edit ${{ steps.cpr.outputs.pull-request-number }} --title "$NEW_TITLE" --body "test"
       env:
         GITHUB_TOKEN: ${{ secrets.DEPENDABOT_GITHUB_TOKEN}}
