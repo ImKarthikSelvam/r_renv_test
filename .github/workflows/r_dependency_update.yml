@@ -77,7 +77,10 @@ jobs:
           ${{steps.cpr.outputs.pull-request-url }}
     
     - name: Check out repository
+      timeout-minutes: 2
       uses: actions/checkout@v2
+      with:
+        ref: create-renv-lock-file
     
     - name: Update PR Title with Jira Issue
       run: |
