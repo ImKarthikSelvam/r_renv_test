@@ -54,10 +54,10 @@ jobs:
         branch: create-renv-lock-file
 
     - name: Check outputs1
-    run: |
-      echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
-      echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}"
-      echo "Pull Request Branch - ${{ steps.cpr.outputs.pull-request-branch }}"
+      run: |
+        echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
+        echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}"
+        echo "Pull Request Branch - ${{ steps.cpr.outputs.pull-request-branch }}"
 
     - name: Login to Jira
       uses: atlassian/gajira-login@v2.0.0
@@ -67,10 +67,10 @@ jobs:
         JIRA_API_TOKEN: ${{secrets.JIRA_API_TOKEN}}
 
     - name: Check outputs2
-    run: |
-      echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
-      echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}"
-      echo "Pull Request Branch - ${{ steps.cpr.outputs.pull-request-branch }}"
+      run: |
+        echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
+        echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}"
+        echo "Pull Request Branch - ${{ steps.cpr.outputs.pull-request-branch }}"
 
     - name: Create Jira Issue
       id: create
