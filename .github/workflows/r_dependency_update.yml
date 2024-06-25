@@ -53,12 +53,24 @@ jobs:
         body: 'This PR updates the renv.lock file of repo'
         branch: create-renv-lock-file
 
+    - name: Check outputs1
+    run: |
+      echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
+      echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}"
+      echo "Pull Request Branch - ${{ steps.cpr.outputs.pull-request-branch }}"
+
     - name: Login to Jira
       uses: atlassian/gajira-login@v2.0.0
       env:
         JIRA_BASE_URL: ${{env.JIRA_BASE_URL}}
         JIRA_USER_EMAIL: ${{env.JIRA_USER_EMAIL}}
         JIRA_API_TOKEN: ${{secrets.JIRA_API_TOKEN}}
+
+    - name: Check outputs2
+    run: |
+      echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
+      echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}"
+      echo "Pull Request Branch - ${{ steps.cpr.outputs.pull-request-branch }}"
 
     - name: Create Jira Issue
       id: create
@@ -67,13 +79,19 @@ jobs:
         project: ${{env.JIRA_PROJECT}}
         issuetype: ${{env.JIRA_ISSUE_TYPE}}
         summary: |
-          [${{steps.cpr.outputs.pull-request-branch }}] Update renv.lock file
+          [${{ steps.cpr.outputs.pull-request-branch }}] Update renv.lock file
         description: |
-          ${{steps.cpr.outputs.pull-request-url }}
+          ${{ steps.cpr.outputs.pull-request-url }}
+
+    - name: Check out repository
+      timeout-minutes: 2
+      uses: actions/checkout@v2
+      with:
+        ref: create-renv-lock-file
 
     - name: Update PR Title with Jira Issue
       run: |
-        NEW_TITLE="${{steps.create.outputs.issue}} - Update renv.lock file"
+        NEW_TITLE="${{ steps.create.outputs.issue }} - Update renv.lock file"
         gh pr edit ${{ steps.cpr.outputs.pull-request-number }} --title "$NEW_TITLE" --body "test"
       env:
         GITHUB_TOKEN: ${{ secrets.DEPENDABOT_GITHUB_TOKEN}}
