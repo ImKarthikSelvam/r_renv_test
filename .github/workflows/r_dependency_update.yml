@@ -73,13 +73,13 @@ jobs:
         project: ${{env.JIRA_PROJECT}}
         issuetype: ${{env.JIRA_ISSUE_TYPE}}
         summary: |
-          [${{steps.cpr.outputs.pull-request-branch }}] Update renv.lock file
+          [${{github.event.repository.name }}] 'Update renv.lock file'
         description: |
-          ${{steps.cpr.outputs.pull-request-url }}
+          ${{github.event.pull_request.html_url }}
     
     - name: Update PR Title with Jira Issue
       run: |
-        NEW_TITLE="${{steps.create.outputs.issue}} - Update renv.lock file"
-        gh pr edit ${{ steps.cpr.outputs.pull-request-number }} --title "$NEW_TITLE" --body "test"
+        NEW_TITLE="${{steps.create.outputs.issue}} - ${{ github.event.pull_request.title }}"
+        gh pr edit ${{ github.event.pull_request.number }} --title "$NEW_TITLE" --body "test"
       env:
         GITHUB_TOKEN: ${{ secrets.DEPENDABOT_GITHUB_TOKEN}}
