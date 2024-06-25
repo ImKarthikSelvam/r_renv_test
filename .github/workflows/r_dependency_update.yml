@@ -66,6 +66,17 @@ jobs:
         JIRA_USER_EMAIL: ${{env.JIRA_USER_EMAIL}}
         JIRA_API_TOKEN: ${{secrets.JIRA_API_TOKEN}}
     
+    - name: Trigger Workflow
+      uses: actions/github-script@v6
+      with:
+        script: |
+          github.rest.actions.createWorkflowDispatch({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            workflow_id: 'jira_creation.yml',
+            ref: '${{ github.head_ref }}',
+          })
+
     - name: Create Jira Issue
       id: create
       uses: atlassian/gajira-create@v2.0.1
@@ -73,10 +84,13 @@ jobs:
         project: ${{env.JIRA_PROJECT}}
         issuetype: ${{env.JIRA_ISSUE_TYPE}}
         summary: |
-          [${{github.event.repository.name }}] 'Update renv.lock file'
+          [${{github.event.repository.name }}] Update renv.lock file
         description: |
           ${{github.event.pull_request.html_url }}
-    
+
+    - name: Check out repository
+      uses: actions/checkout@v2
+
     - name: Update PR Title with Jira Issue
       run: |
         NEW_TITLE="${{steps.create.outputs.issue}} - ${{ github.event.pull_request.title }}"

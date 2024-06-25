@@ -1,0 +1,47 @@
+name: Dependabot Jira
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+    branches:
+      - main
+
+env:
+  JIRA_BASE_URL: https://karthiksksamy.atlassian.net/
+  JIRA_USER_EMAIL: karthiksksamy@gmail.com
+  JIRA_API_TOKEN: ${{secrets.JIRA_API_TOKEN}}
+  JIRA_PROJECT: DEP
+  JIRA_ISSUE_TYPE: Task
+
+jobs:
+  create_jira:
+    name: Dependabot Jira
+    runs-on: ubuntu-latest
+    #if: github.event.pull_request.user.id == 27856297 #id dependabot user
+    steps:
+    - name: Login to Jira
+      uses: atlassian/gajira-login@v2.0.0
+      env:
+        JIRA_BASE_URL: ${{env.JIRA_BASE_URL}}
+        JIRA_USER_EMAIL: ${{env.JIRA_USER_EMAIL}}
+        JIRA_API_TOKEN: ${{secrets.JIRA_API_TOKEN}}
+    
+    - name: Create Jira Issue
+      id: create
+      uses: atlassian/gajira-create@v2.0.1
+      with:
+        project: ${{env.JIRA_PROJECT}}
+        issuetype: ${{env.JIRA_ISSUE_TYPE}}
+        summary: |
+          [${{github.event.repository.name }}] ${{github.event.pull_request.title }}
+        description: |
+          ${{github.event.pull_request.html_url }}
+    - name: Check out repository
+      uses: actions/checkout@v2
+    - name: Update PR Title with Jira Issue
+      run: |
+        NEW_TITLE="${{steps.create.outputs.issue}} - ${{ github.event.pull_request.title }}"
+        gh pr edit ${{ github.event.pull_request.number }} --title "$NEW_TITLE" --body "test"
+      env:
+        GITHUB_TOKEN: ${{ secrets.DEPENDABOT_GITHUB_TOKEN}}
