@@ -45,7 +45,7 @@ jobs:
       run: git diff renv.lock
 
     - name: Create pull request
-      uses: peter-evans/create-pull-request@v3
+      uses: peter-evans/create-pull-request@v6
       with:
         GITHUB_TOKEN: ${{ secrets.DEPENDABOT_GITHUB_TOKEN}}
         commit-message: Update renv.lock file
@@ -53,29 +53,12 @@ jobs:
         body: 'This PR updates the renv.lock file of repo'
         branch: create-renv-lock-file
 
-    - name: Check out repository
-      timeout-minutes: 2
-      uses: actions/checkout@v2
-      with:
-        ref: create-renv-lock-file
-
     - name: Login to Jira
       uses: atlassian/gajira-login@v2.0.0
       env:
         JIRA_BASE_URL: ${{env.JIRA_BASE_URL}}
         JIRA_USER_EMAIL: ${{env.JIRA_USER_EMAIL}}
         JIRA_API_TOKEN: ${{secrets.JIRA_API_TOKEN}}
-    
-    - name: Trigger Workflow
-      uses: actions/github-script@v6
-      with:
-        script: |
-          github.rest.actions.createWorkflowDispatch({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            workflow_id: 'jira_creation.yml',
-            ref: '${{ github.head_ref }}',
-          })
 
     - name: Create Jira Issue
       id: create
@@ -84,16 +67,13 @@ jobs:
         project: ${{env.JIRA_PROJECT}}
         issuetype: ${{env.JIRA_ISSUE_TYPE}}
         summary: |
-          [${{github.event.repository.name }}] Update renv.lock file
+          [${{steps.cpr.outputs.pull-request-branch }}] Update renv.lock file
         description: |
-          ${{github.event.pull_request.html_url }}
-
-    - name: Check out repository
-      uses: actions/checkout@v2
+          ${{steps.cpr.outputs.pull-request-url }}
 
     - name: Update PR Title with Jira Issue
       run: |
-        NEW_TITLE="${{steps.create.outputs.issue}} - ${{ github.event.pull_request.title }}"
-        gh pr edit ${{ github.event.pull_request.number }} --title "$NEW_TITLE" --body "test"
+        NEW_TITLE="${{steps.create.outputs.issue}} - Update renv.lock file"
+        gh pr edit ${{ steps.cpr.outputs.pull-request-number }} --title "$NEW_TITLE" --body "test"
       env:
         GITHUB_TOKEN: ${{ secrets.DEPENDABOT_GITHUB_TOKEN}}
