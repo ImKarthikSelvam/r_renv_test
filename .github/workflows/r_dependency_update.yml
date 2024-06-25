@@ -53,10 +53,10 @@ jobs:
         body: 'This PR updates the renv.lock file of repo'
         branch: create-renv-lock-file
 
-    - name: Return to feature Branch
-      run: |
-        git checkout origin/create-renv-lock-file
-        git pull origin create-renv-lock-file
+    # - name: Return to feature Branch
+    #   run: |
+    #     git checkout origin/create-renv-lock-file
+    #     git pull origin create-renv-lock-file
 
     - name: Login to Jira
       uses: atlassian/gajira-login@v2.0.0
