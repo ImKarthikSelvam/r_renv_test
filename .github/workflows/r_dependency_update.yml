@@ -61,16 +61,30 @@ jobs:
         JIRA_USER_EMAIL: ${{env.JIRA_USER_EMAIL}}
         JIRA_API_TOKEN: ${{secrets.JIRA_API_TOKEN}}
 
-    - name: Create Jira Issue
+    # - name: Create Jira Issue
+    #   id: create
+    #   uses: atlassian/gajira-create@v2.0.1
+    #   with:
+    #     project: ${{env.JIRA_PROJECT}}
+    #     issuetype: ${{env.JIRA_ISSUE_TYPE}}
+    #     summary: |
+    #       [${{ steps.cpr.outputs.pull-request-branch }}] Update renv.lock file
+    #     description: |
+    #       ${{ steps.cpr.outputs.pull-request-url }}
+    
+    - name: Create
       id: create
-      uses: atlassian/gajira-create@v2.0.1
+      uses: tomhjp/gh-action-jira-create@v0.1.3
       with:
         project: ${{env.JIRA_PROJECT}}
-        issuetype: ${{env.JIRA_ISSUE_TYPE}}
-        summary: |
-          [${{ steps.cpr.outputs.pull-request-branch }}] Update renv.lock file
-        description: |
-          ${{ steps.cpr.outputs.pull-request-url }}
+        issuetype:  ${{env.JIRA_ISSUE_TYPE}}
+        summary: "${{ steps.cpr.outputs.pull-request-branch }} Update renv.lock file"
+        description: "${{ steps.cpr.outputs.pull-request-url }}\n\nCreated from GitHub Action"
+        extraFields: '{"fixVersions": [{"label": "r_dependency_update"}]}"}'
+      env:
+        JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+        JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
+        JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
 
     - name: Update PR Title with Jira Issue
       run: |
