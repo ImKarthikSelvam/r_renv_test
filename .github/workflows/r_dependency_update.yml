@@ -80,7 +80,7 @@ jobs:
         issuetype:  ${{env.JIRA_ISSUE_TYPE}}
         summary: "${{ steps.cpr.outputs.pull-request-branch }} Update renv.lock file"
         description: "${{ steps.cpr.outputs.pull-request-url }}\n\nCreated from GitHub Action"
-        extraFields: '{"fixVersions": [{"label": "r_dependency_update"}]}'
+        extraFields: '{"fixVersions": [{"name": "TBD"}], "customfield_20000": "product", "customfield_40000": "${{ github.event.issue.html_url }}"}'
       env:
         JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
         JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
