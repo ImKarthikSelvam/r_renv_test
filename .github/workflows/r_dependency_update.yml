@@ -86,4 +86,4 @@ jobs:
         jira-token: ${{ secrets.JIRA_API_TOKEN }}
         jira-base-url: ${{env.JIRA_BASE_URL}}
         jira-project-key: ${{env.JIRA_PROJECT}}
-        labels: '{"r_dependency"}'
+        labels: '{"r_dependency": "r_dependency"}'
