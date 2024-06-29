@@ -71,7 +71,7 @@ jobs:
           [${{ steps.cpr.outputs.pull-request-branch }}] Update renv.lock file
         description: |
           ${{ steps.cpr.outputs.pull-request-url }}
-        fields: '{"labels": "r_package_dependency"}'
+        fields: '{"labels": ["r_package_dependency"]}'
     
     # - name: Create
     #   id: create
